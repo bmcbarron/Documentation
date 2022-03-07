@@ -93,16 +93,16 @@ An impulse is a force applied to a body in an instance which will change the cur
 
 An impulse is applied to a body's physics imposter.
 
-Applying an impulse requires a vector giving the magnitude and direction of the impulse and the position vector of the contact point of the impulse. The contact point of the impulse is given in world coordinates. 
+Applying an impulse requires a vector giving the magnitude and direction of the impulse and the position vector of the contact point of the impulse. The contact point of the impulse is given in local coordinates. 
 
 ```javascript
 imposter.applyImpulse(impluse_vector, contact_vector)
 
 let localRefPoint = new BABYLON.Vector3(x, y, z);
 
-imposter.applyImpulse(ImpulseVector, mesh.getAbsolutePosition()); //impulse at center of mass
+imposter.applyImpulse(ImpulseVector, BABYLON.Vector3.ZeroReadOnly); //impulse at center of mass
 
-imposter.applyImpulse(ImpulseVector, mesh.getAbsolutePosition().add(localRefPoint)); //impulse at a local point
+imposter.applyImpulse(ImpulseVector, localRefPoint); //impulse at a local point
 ```
 
 The following playground is initially set up to apply an impulse at the center of mass vertically against gravity which eventually return the box to earth. Leaving the friction as 0 and applying horizontal impulses shows the continuity of movement.
@@ -137,7 +137,7 @@ var forceDirection = new BABYLON.Vector3(1, 0, 0);
 var forceMagnitude = 50;
 var contactLocalRefPoint = BABYLON.Vector3.Zero();
 
-impostor.applyForce(forceDirection.scale(forceMagnitude), mesh.getAbsolutePosition().add(contactLocalRefPoint));
+impostor.applyForce(forceDirection.scale(forceMagnitude), contactLocalRefPoint);
 ```
 
 The following playground initially set up with zero friction and to apply an impulse at the center of mass horizontally in the X direction.
